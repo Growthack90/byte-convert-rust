@@ -18,18 +18,43 @@ fn main() {
             }
         };
 
-        // Richiedi all'utente di inserire l'unità di misura
-        println!("Seleziona l'unità di misura (B, KB, MB, GB, TB):");
+        // Richiedi all'utente di inserire l'unità di misura di input
+        println!("Seleziona l'unità di misura di input (B, KB, MB, GB, TB):");
         let mut input_unit = String::new();
         io::stdin().read_line(&mut input_unit).expect("Errore nella lettura dell'input");
 
+        // Richiedi all'utente di inserire l'unità di misura di output
+        println!("Seleziona l'unità di misura di output (B, KB, MB, GB, TB):");
+        let mut output_unit = String::new();
+        io::stdin().read_line(&mut output_unit).expect("Errore nella lettura dell'input");
+
         // Effettua la conversione in base all'unità di misura scelta
-        let result = match input_unit.trim().to_lowercase().as_str() {
-            "b" => input_value,
-            "kb" => input_value * 1024.0,
-            "mb" => input_value * 1024.0 * 1024.0,
-            "gb" => input_value * 1024.0 * 1024.0 * 1024.0,
-            "tb" => input_value * 1024.0 * 1024.0 * 1024.0 * 1024.0,
+        let result = match (input_unit.trim().to_lowercase().as_str(), output_unit.trim().to_lowercase().as_str()) {
+            ("b", "b") => input_value,
+            ("kb", "b") => input_value * 1024.0,
+            ("mb", "b") => input_value * 1024.0 * 1024.0,
+            ("gb", "b") => input_value * 1024.0 * 1024.0 * 1024.0,
+            ("tb", "b") => input_value * 1024.0 * 1024.0 * 1024.0 * 1024.0,
+            ("b", "kb") => input_value / 1024.0,
+            ("kb", "kb") => input_value,
+            ("mb", "kb") => input_value * 1024.0,
+            ("gb", "kb") => input_value * 1024.0 * 1024.0,
+            ("tb", "kb") => input_value * 1024.0 * 1024.0 * 1024.0,
+            ("b", "mb") => input_value / (1024.0 * 1024.0),
+            ("kb", "mb") => input_value / 1024.0,
+            ("mb", "mb") => input_value,
+            ("gb", "mb") => input_value * 1024.0,
+            ("tb", "mb") => input_value * 1024.0 * 1024.0,
+            ("b", "gb") => input_value / (1024.0 * 1024.0 * 1024.0),
+            ("kb", "gb") => input_value / (1024.0 * 1024.0),
+            ("mb", "gb") => input_value / 1024.0,
+            ("gb", "gb") => input_value,
+            ("tb", "gb") => input_value * 1024.0,
+            ("b", "tb") => input_value / (1024.0 * 1024.0 * 1024.0 * 1024.0),
+            ("kb", "tb") => input_value / (1024.0 * 1024.0 * 1024.0),
+            ("mb", "tb") => input_value / (1024.0 * 1024.0),
+            ("gb", "tb") => input_value / 1024.0,
+            ("tb", "tb") => input_value,
             _ => {
                 println!("Unità di misura non valida. Riprova.");
                 continue; // Torna all'inizio del ciclo
@@ -37,7 +62,7 @@ fn main() {
         };
 
         // Stampa il risultato
-        println!("Risultato {} --> B: {:.2} B", input_unit.trim(), result);
+        println!("Risultato {} {} --> : {:.2} {}", input_value, input_unit, result, output_unit);
 
 
         // Chiedi all'utente se desidera eseguire un'altra conversione
