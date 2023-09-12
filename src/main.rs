@@ -62,7 +62,7 @@ fn main() {
         };
 
         // Stampa il risultato
-        print!("Risultato:\n {} ({}) --> {:.2} ({})\n", input_value, input_unit.trim(), result, output_unit.trim());
+        print!("Risultato:\n {} ({}) --> {:.8} ({})\n", input_value, input_unit.trim(), result, output_unit.trim());
 
 
         // Chiedi all'utente se desidera eseguire un'altra conversione
